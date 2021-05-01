@@ -1,4 +1,6 @@
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
+
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -8,12 +10,12 @@ import { useCollectionData} from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
   apiKey: "AIzaSyBRakLu12uw9mfTNboIHZl45avRwKM8UUE",
-  authDomain: "chatmessenger-7f64e.firebaseapp.com",
-  projectId: "chatmessenger-7f64e",
-  storageBucket: "chatmessenger-7f64e.appspot.com",
-  messagingSenderId: "910248657196",
-  appId: "1:910248657196:web:233ce73995e6ec9641ec89",
-  measurementId: "G-DJRC9J3L9P"
+    authDomain: "chatmessenger-7f64e.firebaseapp.com",
+    projectId: "chatmessenger-7f64e",
+    storageBucket: "chatmessenger-7f64e.appspot.com",
+    messagingSenderId: "910248657196",
+    appId: "1:910248657196:web:d5eb3fd6ca7fc06a41ec89",
+    measurementId: "G-DXDV2PGV0L"
 })
 
 const auth = firebase.auth();
@@ -30,7 +32,7 @@ function App() {
         
       </header>
       <section>
-        {user ? <ChatRoom />: <SignIn />}
+        {user ? <ChatRoom /> : <SignIn />}
       </section>
     </div>
   );
@@ -55,15 +57,45 @@ function SignOut(){
 }
 
 function ChatRoom(){
-  const messageRefs = firestore.collection('messages');
-  const query = messageRefs.orderBy('createdAt').limit(25);
-  const [messages] = useCollectionData(query, {idField:'id'});
+  const [messages, setMessages] = useState([]);
+  const messagesRefs = firestore.collection('messages');
+  
+  // const query = messagesRefs.orderBy('createdAt').limit(25);
+  // const {messages} = useCollectionData(query, {idField:'id'});
+  // console.log(messages);
 
+  function getMsgs(){
+    messagesRefs.onSnapshot((querySnapshot) => {
+      const msgs =[];
+      querySnapshot.forEach((doc) => {
+        msgs.push(doc.data());
+      });
+      setMessages(msgs);
+    });
+  }
+
+  useEffect(() =>{
+    getMsgs();
+  },[]);
+  console.log(messages);
+
+  return(
+    <>
+    <div>
+      {messages && messages.map(msg => <ChatMessage key={msg.id} message = {msg}/>)}
+    </div>
+    <div>
+      Hello
+    </div>
+    </>
+  )
 
 }
 
-function ChatMessage(){
+function ChatMessage(props){
+  const {text,uid} = props.message;
 
+  return (<p>{text}</p>)
 }
 
 
