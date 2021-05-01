@@ -1,22 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import firebase from './firestore';
 
 import { useAuthState} from 'react-firebase-hooks/auth';
 import { useCollectionData} from 'react-firebase-hooks/firestore';
-
-firebase.initializeApp({
-  apiKey: "AIzaSyBRakLu12uw9mfTNboIHZl45avRwKM8UUE",
-    authDomain: "chatmessenger-7f64e.firebaseapp.com",
-    projectId: "chatmessenger-7f64e",
-    storageBucket: "chatmessenger-7f64e.appspot.com",
-    messagingSenderId: "910248657196",
-    appId: "1:910248657196:web:d5eb3fd6ca7fc06a41ec89",
-    measurementId: "G-DXDV2PGV0L"
-})
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -58,11 +49,10 @@ function SignOut(){
 
 function ChatRoom(){
   const [messages, setMessages] = useState([]);
-  const messagesRefs = firestore.collection('messages');
-  
-  // const query = messagesRefs.orderBy('createdAt').limit(25);
-  // const {messages} = useCollectionData(query, {idField:'id'});
-  // console.log(messages);
+  const [formValue, setFormValue ] = useState('');
+
+  const messagesRefs0 = firestore.collection('messages');
+  const messagesRefs = messagesRefs0.orderBy('createdAt').limit(25);
 
   function getMsgs(){
     messagesRefs.onSnapshot((querySnapshot) => {
@@ -77,26 +67,52 @@ function ChatRoom(){
   useEffect(() =>{
     getMsgs();
   },[]);
-  console.log(messages);
+
+  const sendMessage = async(e) =>{
+    e.preventDefault();
+
+    const {uid, photoURL} = auth.currentUser;
+
+    await messagesRefs0.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL
+    })
+
+    setFormValue('');
+  }
 
   return(
     <>
     <div>
       {messages && messages.map(msg => <ChatMessage key={msg.id} message = {msg}/>)}
     </div>
-    <div>
-      Hello
-    </div>
+
+    <form onSubmit={sendMessage}>
+      <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
+
+      <button type="submit">Send</button>
+    </form>
     </>
   )
 
 }
 
 function ChatMessage(props){
-  const {text,uid} = props.message;
+  const {text,uid, photoURL} = props.message;
 
-  return (<p>{text}</p>)
+  const messageClass = uid === auth.currentUser.uid ? 'sender' : 'receiver';
+
+
+  return (
+    <div className = {'message ${messageClass}'}>
+      <img src={photoURL}/>
+      <p>{text}</p>
+    </div>
+  )
 }
+
 
 
 export default App;
