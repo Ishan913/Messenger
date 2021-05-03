@@ -19,9 +19,6 @@ function App() {
 
   return (
     <div className="App">
-      <header >
-        
-      </header>
       <section>
         {user ? <ChatRoom /> : <SignIn />}
       </section>
@@ -37,7 +34,10 @@ function SignIn(){
   }
 
   return(
-    <button onClick={signInWithGoogle}>Sign in with Google</button>
+    <div className="App-signin">
+      <header className="App-signin-header">Welcome to Ishan's Messenger</header>
+      <button className="App-signin-button" onClick={signInWithGoogle}><img className="App-signin-image" src="https://img.icons8.com/fluent/48/000000/google-logo.png"/>Sign in with Google</button>
+    </div>
   )
 }
 
