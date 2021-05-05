@@ -35,7 +35,7 @@ function SignIn(){
 
   return(
     <div className="App-signin">
-      <header className="App-signin-header">Welcome to Ishan's Messenger</header>
+      <header className="App-signin-header">Welcome to Messenger</header>
       <button className="App-signin-button" onClick={signInWithGoogle}><img className="App-signin-image" src="https://img.icons8.com/fluent/48/000000/google-logo.png"/>Sign in with Google</button>
     </div>
   )
@@ -85,13 +85,13 @@ function ChatRoom(){
 
   return(
     <>
+    <div className="App-chat-header">Global Chat</div>
     <div>
       {messages && messages.map(msg => <ChatMessage key={msg.id} message = {msg}/>)}
     </div>
 
     <form onSubmit={sendMessage}>
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
-
       <button type="submit">Send</button>
     </form>
     </>
@@ -106,7 +106,7 @@ function ChatMessage(props){
 
 
   return (
-    <div className = {'message ${messageClass}'}>
+    <div className = {`message ${messageClass}`}>
       <img src={photoURL}/>
       <p>{text}</p>
     </div>

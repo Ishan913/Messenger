@@ -20,68 +20,41 @@
   color: #4db1bc;
   font-size: 7em;
   font-family: 'Teko', sans-serif;
-    text-transform: uppercase;
-    animation: glow 2s ease-in-out infinite alternate;
+  text-transform: uppercase;
+  animation: glow 2s ease-in-out infinite alternate;
+  margin-bottom: .3em;
 }
 
 .App-signin-button{
   background-color: #4185f5;
+  width: 12em;
+  height: 2.5em;
   display: inline-flex;
   border: 0;
   color: white;
   justify-content: center;
   align-items: center;
   padding: .1em;
+  padding-right: .3em;
   font-size: 1.25em;
   cursor: pointer;
 }
 
 .App-signin-button:hover{
-  
+  transform: translateY(-.15em);
+  box-shadow: 0 0.5em 0.5em -.4em #4185f5;
 }
 
 .App-signin-image{
   background-color: white;
-  margin-right: .25em;
-  margin-left: 0em;
+  margin-right: .5em;
+  margin-left: 0%;
   width:  2em;
   height: 2em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  /* background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white; */
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @keyframes glow {
   from {
