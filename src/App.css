@@ -1,22 +1,32 @@
 @import url("https://fonts.googleapis.com/css?family=Teko:700&display=swap");
 
-.App {
-  text-align: center;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  min-width: 100vw;
+body {
   background-color: #282c34;
 }
 
-/* .App-signin{
-  display: flexbox;
+.App{
+  /* min-height: 100vh;
+  min-width: 100vw; */
+  /* background-color: #282c34; */
+  text-align: center;
+  max-width: 50vw;
+  margin: 0 auto;
+}
+
+.App-signin {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-} */
+  min-height: 100vh;
+  /* min-width: 100vw; */
+  background-color: #282c34;
+}
 
+/* Sign in page */
 .App-signin-header{
+  margin: 0;
   color: #4db1bc;
   font-size: 7em;
   font-family: 'Teko', sans-serif;
@@ -53,8 +63,85 @@
   height: 2em;
 }
 
+/* Chat page */
 
+.top-heading{
+  color: white;
+  font-size: .8em;
+  /* border: .01em solid white; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50vw;
+  position: fixed;
+  /* left: 50%; */
+  /* margin-left: -17.5em; */
+  background-color: #181717;
+  height: 10vh;
+  box-sizing: border-box;
+}
 
+.Chat-mainbox{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: rgb(40, 37, 53);
+  
+}
+
+main{
+  /* color: white;
+  border: .01em solid white; */
+  /* padding-top: 6em; */
+  height: 80vh;
+  padding: 60px 0 0 0;
+  margin: 0 0 0;
+  overflow-y: scroll;
+  /* left: 50%; */
+}
+
+main::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+main::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+
+.message{
+  display: flex;
+  align-items: center;
+}
+
+.sender{
+  flex-direction: row-reverse;
+}
+
+.sender p{
+  color: white;
+  background: #d42275;
+  border-radius: 40px;
+  padding: 5px 10px;
+}
+
+.receiver p{
+  background: #e5e5ea;
+  color: black;
+  border-radius: 40px;
+  padding: 5px 10px;
+}
+
+img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
 
 @keyframes glow {
   from {

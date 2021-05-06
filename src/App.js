@@ -19,9 +19,12 @@ function App() {
 
   return (
     <div className="App">
+      <header><SignOut /></header>
+      
       <section>
         {user ? <ChatRoom /> : <SignIn />}
       </section>
+    
     </div>
   );
 }
@@ -35,7 +38,7 @@ function SignIn(){
 
   return(
     <div className="App-signin">
-      <header className="App-signin-header">Welcome to Messenger</header>
+      <h1 className="App-signin-header">Welcome to Messenger</h1>
       <button className="App-signin-button" onClick={signInWithGoogle}><img className="App-signin-image" src="https://img.icons8.com/fluent/48/000000/google-logo.png"/>Sign in with Google</button>
     </div>
   )
@@ -43,7 +46,10 @@ function SignIn(){
 
 function SignOut(){
   return auth.currentUser && (
-    <button onClick={() =>auth.SignOut()} >SignOut</button>
+    <div className="top-heading">
+      <h1> Global Chat</h1>
+      <button className="sign-out" onClick={() =>auth.SignOut()} >SignOut</button>
+    </div>
   )
 }
 
@@ -84,17 +90,21 @@ function ChatRoom(){
   }
 
   return(
-    <>
-    <div className="App-chat-header">Global Chat</div>
-    <div>
-      {messages && messages.map(msg => <ChatMessage key={msg.id} message = {msg}/>)}
-    </div>
+    <div className="Chat-mainbox">
+    
+      <main>
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message = {msg}/>)}
+      </main>
 
-    <form onSubmit={sendMessage}>
-      <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
-      <button type="submit">Send</button>
-    </form>
-    </>
+      <form onSubmit={sendMessage}>
+        
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
+        
+        <button type="submit">Send</button>
+      
+      </form>
+    
+    </div>
   )
 
 }
