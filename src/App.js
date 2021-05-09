@@ -48,7 +48,7 @@ function SignOut(){
   return auth.currentUser && (
     <div className="top-heading">
       <h1> Global Chat</h1>
-      <button className="sign-out" onClick={() =>auth.SignOut()} >SignOut</button>
+      <button className="sign-out" onClick={() =>auth.signOut()} >SignOut</button>
     </div>
   )
 }
