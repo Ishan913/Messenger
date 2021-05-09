@@ -54,6 +54,7 @@ function SignOut(){
 }
 
 function ChatRoom(){
+  const dummy = useRef();
   const [messages, setMessages] = useState([]);
   const [formValue, setFormValue ] = useState('');
 
@@ -76,17 +77,19 @@ function ChatRoom(){
 
   const sendMessage = async(e) =>{
     e.preventDefault();
+    if (formValue != ''){
+      const {uid, photoURL} = auth.currentUser;
 
-    const {uid, photoURL} = auth.currentUser;
+      await messagesRefs0.add({
+        text: formValue,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid,
+        photoURL
+      })
 
-    await messagesRefs0.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL
-    })
-
-    setFormValue('');
+      setFormValue('');
+      dummy.current.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   return(
@@ -94,7 +97,9 @@ function ChatRoom(){
     
       <main>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message = {msg}/>)}
+        <span ref={dummy}></span>
       </main>
+      
 
       <form onSubmit={sendMessage}>
         
